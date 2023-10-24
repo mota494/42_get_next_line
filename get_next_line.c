@@ -6,43 +6,29 @@
 /*   By: mloureir <mloureir@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:50:50 by mloureir          #+#    #+#             */
-/*   Updated: 2023/10/12 15:32:33 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/10/24 09:57:25 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char *get_next_line(int fd)
 {
-	int count;
-	int i;
-	int check;
-	char str[BUFFSIZE];
-	char *newstr;
+	char	newstr[BUFFSIZE];
+	int		read;
 
-	count = 0;
-	check = 0;
-	while(check != 0)
+	read = 1;
+    if (fd < 0)
+        return (NULL);
+	while(read > 0)
 	{
-		check = read(fd, str, BUFFSIZE);
-		while(str[i++])
-		{
-			if(str[i] == '\n')
-				break;
-			count++;
-		}
+		read = read(fd, newstr, BUFFSIZE);
+
 	}
-	i = 0;
-	newstr = malloc(sizeof(char) * count);
-	while(i < count)
-	{
-		newstr[i] = str[i];
-		i++;
-	}
-	return (newstr);
+	return (*newstr);
 }
 
+#include <stdio.h>
 int main(void)
 {
 	int fd;

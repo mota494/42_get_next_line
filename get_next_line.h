@@ -17,6 +17,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-char *get_next_line(int fd);
+char    *get_next_line(int fd);
 
-#endif //DOCUMENTS_GET_NEXT_LINE_H
+#endif
