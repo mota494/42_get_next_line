@@ -8,9 +8,6 @@ OBJS=$(SRC:.c=.o)
 %.o : %.c
 	$(CC) $(FLAGS) -c $*.c -o $*.o
 
-#$(NAME): $(OBJS)
-#	ar rc $(NAME) $(OBJS)
-
 clean:
 	$(RM) $(OBJS)
 
@@ -21,3 +18,6 @@ re: fclean all
 
 exec:
 	$(CC) $(SRC)
+
+norm:
+	norminette $(SRC) get_next_line.h

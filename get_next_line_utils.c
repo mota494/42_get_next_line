@@ -6,7 +6,7 @@
 /*   By: mloureir <mloureir@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:51:07 by mloureir          #+#    #+#             */
-/*   Updated: 2023/10/27 11:47:34 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:19:27 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,15 @@ char *ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while(s1[i] != '\0')
+	while (s2[j] != '\0')
 	{
-		newstr[i] = s1[i];
-		i++;
-	}
-	while(s2[j] != '\0')
-	{
-		newstr[i + j] = s2[j];
+		newstr[j] = s2[j];
 		j++;
+	}
+	while (s1[i] != '\0')
+	{
+		newstr[i + j] = s1[i];
+		i++;
 	}
 	return (newstr);
 }
