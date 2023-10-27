@@ -6,36 +6,33 @@
 /*   By: mloureir <mloureir@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:50:50 by mloureir          #+#    #+#             */
-/*   Updated: 2023/10/24 09:57:25 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/10/26 18:02:36 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
-char *get_next_line(int fd)
+char *ft_get_next_line(int fd)
 {
-	char	newstr[BUFFSIZE];
-	int		read;
+	char *toret;
+	char supstr[BUFFSIZE];
 
-	read = 1;
-    if (fd < 0)
-        return (NULL);
-	while(read > 0)
-	{
-		read = read(fd, newstr, BUFFSIZE);
-
-	}
-	return (*newstr);
+	read(fd, supstr, BUFFSIZE);
+	printf("%s", supstr);
+	return (toret);
 }
 
-#include <stdio.h>
 int main(void)
 {
 	int fd;
-	char *str;
-
+	int i = 0;
 	fd = open("teste.txt", O_RDONLY);
-	str = get_next_line(fd);
-	printf("%s", str);
+	while(i < 1)
+	{
+		printf("[%d]\n", i);
+		get_next_line(fd);
+		i++;
+	}
 	return (0);
 }

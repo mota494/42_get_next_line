@@ -6,7 +6,7 @@
 /*   By: mloureir <mloureir@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:51:26 by mloureir          #+#    #+#             */
-/*   Updated: 2023/10/12 15:25:50 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:54:38 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-char    *get_next_line(int fd);
-
+char    *ft_get_next_line(int fd);
+char	*ft_strjoin(char *s1, char *s2);
 #endif
