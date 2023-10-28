@@ -6,7 +6,7 @@
 /*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:50:50 by mloureir          #+#    #+#             */
-/*   Updated: 2023/10/28 17:04:59 by miguel           ###   ########.fr       */
+/*   Updated: 2023/10/28 17:14:08 by miguel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ void	ft_clean(char *str)
 
 	i = 0;
 	while(str[i] != '\n')
-	{
 		i++;
-	}
 	j = 0;
 	i++;
 	while(str[i] != '\0')
@@ -96,11 +94,10 @@ char	*ft_get_next_line(int fd)
 	}
 	ft_treat(toret);
 	ft_clean(supstr);
-	printf("\nsupstr: %s", supstr);
 	return (toret);
 }
 
-int main(void)
+/* int main(void)
 {
 	int fd;
 	int i = 0;
@@ -113,4 +110,4 @@ int main(void)
 		i++;
 	}
 	return (0);
-}
+} */
