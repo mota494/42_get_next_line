@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mloureir <mloureir@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:51:26 by mloureir          #+#    #+#             */
-/*   Updated: 2023/10/27 17:48:03 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:03:48 by miguel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ int 	ft_hadendl(char *str);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	ft_treat(char *toret);
 void	ft_clean(char *str);
+char	*ft_oldchar(char *toret, char *supstr);
 #endif

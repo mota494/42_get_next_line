@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mloureir <mloureir@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:50:50 by mloureir          #+#    #+#             */
-/*   Updated: 2023/10/27 17:57:22 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:04:59 by miguel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
+
+char	*ft_oldchar(char *toret, char *supstr)
+{
+	toret = ft_strjoin(supstr, toret);
+	return (toret);
+	
+}
 
 void	ft_clean(char *str)
 {
@@ -55,6 +62,8 @@ int	ft_hasendl(char *str)
 	int	i;
 
 	i = 0;
+	if(str[0] == '\0')
+		return (0);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\n')
@@ -70,9 +79,11 @@ char	*ft_get_next_line(int fd)
 	static char	supstr[BUFFSIZE];
 	int			count;
 
+	toret = ft_calloc(sizeof(char), 1);
+	if(supstr[0] != '\0')
+		toret = ft_oldchar(toret, supstr);
 	count = read(fd, supstr, BUFFSIZE);
 	supstr[count] = '\0';
-	toret = ft_calloc(sizeof(char), 1);
 	toret = ft_strjoin(supstr, toret);
 	if (ft_hasendl(toret) == 0)
 	{
@@ -84,10 +95,8 @@ char	*ft_get_next_line(int fd)
 		}
 	}
 	ft_treat(toret);
-	printf("Antes do clean: %s\n", supstr);
 	ft_clean(supstr);
-	printf("Depois do clean: %s", supstr);
-	printf("\n\n\n%s", toret);
+	printf("\nsupstr: %s", supstr);
 	return (toret);
 }
 
@@ -95,11 +104,12 @@ int main(void)
 {
 	int fd;
 	int i = 0;
+	char *str;
 	fd = open("teste.txt", O_RDONLY);
-	while(i < 1)
+	while(i < 5)
 	{
-		printf("[%d]\n", i);
-		ft_get_next_line(fd);
+		str = ft_get_next_line(fd);
+		printf("\n[%d]Line: %s", i, str);
 		i++;
 	}
 	return (0);
