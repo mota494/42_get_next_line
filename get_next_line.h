@@ -6,13 +6,13 @@
 /*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:51:26 by mloureir          #+#    #+#             */
-/*   Updated: 2023/10/28 17:03:48 by miguel           ###   ########.fr       */
+/*   Updated: 2023/10/28 17:05:57 by miguel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFFSIZE 42
+# define BUFFSIZE 10000
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
