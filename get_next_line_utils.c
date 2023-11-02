@@ -6,7 +6,7 @@
 /*   By: mloureir <mloureir@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:51:07 by mloureir          #+#    #+#             */
-/*   Updated: 2023/10/27 16:19:27 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:38:26 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,39 +28,60 @@ void *ft_calloc(size_t nmemb, size_t size)
 	return (ptr);
 }
 
-int	ft_strl(char *str)
+size_t	ft_strlen(char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i] != '\0')
 		i++;
 	return (i);
 }
 
-char *ft_strjoin(char *s1, char *s2)
+int	ft_hasnl(char *str)
 {
-	char	*newstr;
-	int 	strl[2];
-	int 	i;
-	int		j;
+	int	i;
+	int	countnl;
 
-	strl[0] = ft_strl(s1);
-	strl[1] = ft_strl(s2);
-	newstr = ft_calloc((strl[0] + strl[1]) , sizeof(char));
-	if (!newstr)
-		return (NULL);
 	i = 0;
-	j = 0;
-	while (s2[j] != '\0')
+	countnl = 0;
+	if (!str)
+		return (0);
+	while (str[i] != '\0')
 	{
-		newstr[j] = s2[j];
-		j++;
-	}
-	while (s1[i] != '\0')
-	{
-		newstr[i + j] = s1[i];
+		if (str[i] == '\n')
+			countnl++;
 		i++;
 	}
-	return (newstr);
+	return (countnl);
+}
+
+char	*ft_strjoin(char *buffer, char *pstr)
+{
+	char	*newstring;
+	size_t	i;
+
+	i = 0;
+	if (*buffer == '\0' && *pstr == '\0')
+		return (NULL);
+	newstring = ft_calloc(ft_strlen(pstr) + ft_strlen(buffer) + 1, sizeof(char));
+	if (!newstring)
+	{
+		free(pstr);
+		return (NULL);
+	}
+	while (i < ft_strlen(pstr))
+	{
+		newstring[i] = pstr[i];
+		i++;
+	}
+	while (i < ft_strlen(pstr) + ft_strlen(buffer))
+	{
+		newstring[i] = buffer[i - ft_strlen(pstr)];
+		i++;
+	}
+	free(pstr);
+	return (newstring);
 }

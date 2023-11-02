@@ -6,24 +6,23 @@
 /*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:51:26 by mloureir          #+#    #+#             */
-/*   Updated: 2023/10/28 17:05:57 by miguel           ###   ########.fr       */
+/*   Updated: 2023/11/02 11:30:17 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFFSIZE 10000
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-
-char    *ft_get_next_line(int fd);
-char	*ft_strjoin(char *s1, char *s2);
-int 	ft_strl(char *str);
-int 	ft_hadendl(char *str);
+//get_next_line
+char	*get_next_line(int fd);
+char 	*ft_writeline(int fd, char *buffer);
+//get_next_line_utils
 void	*ft_calloc(size_t nmemb, size_t size);
-void	ft_treat(char *toret);
-void	ft_clean(char *str);
-char	*ft_oldchar(char *toret, char *supstr);
+int		ft_hasnl(char *str);
+size_t	ft_strlen(char *str);
+char	*ft_strjoin(char *buffer, char *pstr);
+
 #endif
