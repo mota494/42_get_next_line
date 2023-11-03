@@ -6,7 +6,7 @@
 /*   By: mloureir <mloureir@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:51:07 by mloureir          #+#    #+#             */
-/*   Updated: 2023/11/02 11:38:27 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/11/03 11:57:58 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,12 @@ char	*ft_strjoin(char *buffer, char *pstr)
 	}
 	free(pstr);
 	return (newstring);
+}
+
+char 	*ft_copyuntenl(char *buffer, char *toret)
+{
+	char 	*newstr;
+
+	free(toret);
+	return (newstr);
 }

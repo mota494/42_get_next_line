@@ -6,18 +6,27 @@
 /*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:50:50 by mloureir          #+#    #+#             */
-/*   Updated: 2023/11/02 16:53:46 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/11/03 11:58:20 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
+char 	*ft_copyuntnl(char *buffer, char *toret)
+{
+	char 	*newstr;
+
+	free(toret);
+	return (newstr);
+}
+
 char	*ft_writeline(int fd, char *buffer, char *toret)
 {
 	int 	bytesread;
 
 	bytesread = 1;
+
 	while(ft_hasnl(buffer) == 0 && bytesread > 0)
 	{
 		bytesread = read(fd, buffer, BUFFER_SIZE);
@@ -54,41 +63,32 @@ char 	*ft_treatline(char *toret, char *buffer)
 		j++;
 	}
 	free(toret);
-	ft_cleanbuffer(buffer, j);
+	ft_cleanbuffer(buffer);
 	return (newstr);
 }
 
-void	ft_cleanbuffer(char *buffer, int nchars)
+void	ft_cleanbuffer(char *buffer)
 {
-	int i;
-
-	i = 0;
-	while (buffer[i] != '\0' && buffer[i + nchars] !='\0')
-	{
-		buffer[i] = buffer[i + nchars];
-		i++;
-	}
-}
-
-char 	*ft_writeoldchar(char *buffer, char *toret)
-{
-	char *newstr;
 	int i;
 	int j;
 
-	i = 0;
-	while(buffer[i] != '\n' && buffer[i] != '\0')
-		i++;
-	newstr = ft_calloc(i + 2, sizeof(char)) // ISTO ESTA MALE
 	j = 0;
-	while (j <= i)
-	{
-		newstr[j] = buffer[j];
+	i = 0;
+	while (buffer[j] != '\n' && j < BUFFER_SIZE)
 		j++;
+	if (buffer[j] == '\n')
+		j++;
+	while (j < BUFFER_SIZE)
+	{
+		buffer[i] = buffer[j];
+		j++;
+		i++;
 	}
-	ft_cleanbuffer(buffer, j);
-	free(toret);
-	return (newstr);
+	while (i < BUFFER_SIZE)
+	{
+		buffer[i] = '\0';
+		i++;
+	}
 }
 
 char	*get_next_line(int fd)
@@ -97,12 +97,6 @@ char	*get_next_line(int fd)
 	char		*toret;
 
 	toret = ft_calloc(1, sizeof(char));
-	if (buffer[0] != '\0')
-	{
-		toret = ft_writeoldchar(buffer, toret);
-		if(ft_hasnl(toret) > 0)
-			return (toret);
-	}
 	toret = ft_writeline(fd, buffer, toret);
 	toret = ft_treatline(toret, buffer);
 	return (toret);
@@ -113,8 +107,8 @@ int main(void)
 	int fd;
 	int i = 0;
 	char *str;
-	fd = open("teste.txt", O_RDONLY);
-	while(i < 6)
+	fd = open("get_next_line.h", O_RDONLY);
+	while(i < 31)
 	{
 		str = get_next_line(fd);
 		printf("\nReturned line: %s", str);
