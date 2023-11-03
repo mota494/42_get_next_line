@@ -6,7 +6,7 @@
 /*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:50:50 by mloureir          #+#    #+#             */
-/*   Updated: 2023/11/03 11:58:20 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/11/03 15:45:56 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,21 @@
 char 	*ft_copyuntnl(char *buffer, char *toret)
 {
 	char 	*newstr;
+	int 	i;
+	int 	j;
 
+	i = 0;
+	j = 0;
+	while (buffer[i] != '\n' && buffer[i] != '\0')
+		i++;
+	newstr = ft_calloc(i + 2, sizeof(char));
+	while (j <= i)
+	{
+		newstr[j] = buffer[j];
+		j++;
+	}
 	free(toret);
+	ft_cleanbuffer(buffer);
 	return (newstr);
 }
 
@@ -26,14 +39,20 @@ char	*ft_writeline(int fd, char *buffer, char *toret)
 	int 	bytesread;
 
 	bytesread = 1;
-
+	if (buffer[0] != '\0')
+	{
+		if (ft_hasnl(buffer) > 0)
+			toret = ft_copyuntnl(buffer, toret);
+		else
+			toret = ft_copyuntenl(buffer, toret);
+	}
 	while(ft_hasnl(buffer) == 0 && bytesread > 0)
 	{
 		bytesread = read(fd, buffer, BUFFER_SIZE);
-		if (bytesread < 0)
+		if (bytesread <= 0)
 		{
 			free(toret);
-			return (0);
+			return (NULL);
 		}
 		buffer[bytesread] = '\0';
 		toret = ft_strjoin(buffer, toret);
@@ -74,17 +93,17 @@ void	ft_cleanbuffer(char *buffer)
 
 	j = 0;
 	i = 0;
-	while (buffer[j] != '\n' && j < BUFFER_SIZE)
+	while (buffer[j] != '\n' && j < BUFFER_SIZE && buffer[j] != '\0')
 		j++;
 	if (buffer[j] == '\n')
 		j++;
-	while (j < BUFFER_SIZE)
+	while (j < BUFFER_SIZE && buffer[j] != '\0')
 	{
 		buffer[i] = buffer[j];
 		j++;
 		i++;
 	}
-	while (i < BUFFER_SIZE)
+	while (i < BUFFER_SIZE && buffer[i] != '\0')
 	{
 		buffer[i] = '\0';
 		i++;
@@ -107,13 +126,14 @@ int main(void)
 	int fd;
 	int i = 0;
 	char *str;
-	fd = open("get_next_line.h", O_RDONLY);
-	while(i < 31)
+	fd = open("teste.txt", O_RDONLY);
+	while(i < 5)
 	{
 		str = get_next_line(fd);
-		printf("\nReturned line: %s", str);
-		free(str);
+//		printf("%s", str);
+		printf("Returned line: %s", str);
 		printf("\n========[%d]========\n", i+1);
+		free(str);
 		i++;
 	}
 	return (0);

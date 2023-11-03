@@ -6,7 +6,7 @@
 /*   By: mloureir <mloureir@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:51:07 by mloureir          #+#    #+#             */
-/*   Updated: 2023/11/03 11:57:58 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:47:09 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,22 @@ char	*ft_strjoin(char *buffer, char *pstr)
 char 	*ft_copyuntenl(char *buffer, char *toret)
 {
 	char 	*newstr;
+	int 	i;
+	int 	j;
 
+	i = 0;
+	j = 0;
+	while (buffer[i] != '\0')
+		i++;
+	newstr = ft_calloc(i + 1, sizeof(char));
+	if (!newstr)
+		return (NULL);
+	while (j < i)
+	{
+		newstr[j] = buffer[j];
+		j++;
+	}
 	free(toret);
+	ft_cleanbuffer(buffer);
 	return (newstr);
 }
