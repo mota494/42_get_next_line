@@ -29,6 +29,4 @@ Francinette tests passed :done,   des5, 06-11-2023,06-11-2023
 Evaluation              :active,  des6, 06-11-2023, 2d
 ```
 
-
-
 </div>
