@@ -6,27 +6,11 @@
 /*   By: mloureir <mloureir@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:51:07 by mloureir          #+#    #+#             */
-/*   Updated: 2023/11/03 14:47:09 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:30:59 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-void *ft_calloc(size_t nmemb, size_t size)
-{
-	unsigned char	*ptr;
-	size_t			sizetotal;
-	size_t			i;
-
-	i = 0;
-	sizetotal = nmemb * size;
-	ptr = (unsigned char *) malloc(sizetotal);
-	if (ptr == NULL)
-		return (NULL);
-	while (i < sizetotal)
-		ptr[i++] = 0;
-	return (ptr);
-}
 
 size_t	ft_strlen(char *str)
 {
@@ -43,68 +27,69 @@ size_t	ft_strlen(char *str)
 int	ft_hasnl(char *str)
 {
 	int	i;
-	int	countnl;
 
 	i = 0;
-	countnl = 0;
 	if (!str)
 		return (0);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\n')
-			countnl++;
+			return (1);
 		i++;
 	}
-	return (countnl);
+	return (0);
 }
 
-char	*ft_strjoin(char *buffer, char *pstr)
+char	*ft_strjoin(char *toret, char *next)
 {
 	char	*newstring;
 	size_t	i;
 
 	i = 0;
-	if (*buffer == '\0' && *pstr == '\0')
-		return (NULL);
-	newstring = ft_calloc(ft_strlen(pstr) + ft_strlen(buffer) + 1, sizeof(char));
+	newstring = malloc(ft_strlen(toret) + ft_strlen(next) + 1);
 	if (!newstring)
 	{
-		free(pstr);
+		free(toret);
+		free(next);
 		return (NULL);
 	}
-	while (i < ft_strlen(pstr))
+	while (toret[i])
 	{
-		newstring[i] = pstr[i];
+		newstring[i] = toret[i];
 		i++;
 	}
-	while (i < ft_strlen(pstr) + ft_strlen(buffer))
+	while (*next)
 	{
-		newstring[i] = buffer[i - ft_strlen(pstr)];
+		newstring[i] = *next;
+		next++;
 		i++;
 	}
-	free(pstr);
+	free(toret);
+	newstring[i] = '\0';
 	return (newstring);
 }
 
-char 	*ft_copyuntenl(char *buffer, char *toret)
+char 	*ft_buffer_to_str(char *buffer, int bytesread)
 {
-	char 	*newstr;
-	int 	i;
-	int 	j;
+	int		i;
+	char	*newstr;
 
 	i = 0;
-	j = 0;
-	while (buffer[i] != '\0')
+	while (buffer[i] != '\n' && i < bytesread)
 		i++;
-	newstr = ft_calloc(i + 1, sizeof(char));
+	if (buffer[i] == '\n')
+		i++;
+	newstr = malloc(i + 1);
 	if (!newstr)
-		return (NULL);
-	while (j < i)
+		return (0);
+	i = 0;
+	while (buffer[i] != '\n' && i < bytesread)
 	{
-		newstr[j] = buffer[j];
-		j++;
+		newstr[i] = buffer[i];
+		i++;
 	}
-	free(toret);
-	ft_cleanbuffer(buffer);
+	if (buffer[i] == '\n')
+		newstr[i++] = '\n';
+	newstr[i] = '\0';
 	return (newstr);
 }
