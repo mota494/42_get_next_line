@@ -6,12 +6,11 @@
 /*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:50:50 by mloureir          #+#    #+#             */
-/*   Updated: 2023/11/06 11:42:10 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:46:16 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 void	ft_cleanbuffer(char *buffer)
 {
@@ -37,7 +36,7 @@ void	ft_cleanbuffer(char *buffer)
 	}
 }
 
-char 	*ft_treat_line(char *toret, int bytesread)
+char	*ft_treat_line(char *toret, int bytesread)
 {
 	if (ft_strlen(toret) && bytesread != -1)
 		return (toret);
@@ -57,11 +56,11 @@ int	ft_is_empty(char *buffer)
 	return (0);
 }
 
-char 	*ft_read_line(int fd, char *toret)
+char	*ft_read_line(int fd, char *toret)
 {
 	static char	buffer[BUFFER_SIZE];
-	char 		*next;
-	int 		bytesread;
+	char		*next;
+	int			bytesread;
 
 	bytesread = 0;
 	while (buffer[bytesread] != '\0' && bytesread < BUFFER_SIZE)
@@ -71,10 +70,10 @@ char 	*ft_read_line(int fd, char *toret)
 		if (ft_is_empty(buffer))
 			bytesread = read(fd, buffer, BUFFER_SIZE);
 		if (bytesread <= 0)
-			break;
+			break ;
 		next = ft_buffer_to_str(buffer, bytesread);
 		if (!next)
-			break;
+			break ;
 		toret = ft_strjoin(toret, next);
 		if (!toret)
 			return (NULL);
@@ -86,7 +85,7 @@ char 	*ft_read_line(int fd, char *toret)
 
 char	*get_next_line(int fd)
 {
-	char *toret;
+	char	*toret;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (0);
@@ -97,20 +96,20 @@ char	*get_next_line(int fd)
 	return (ft_read_line(fd, toret));
 }
 
-int main(void)
-{
-	int fd;
-	int i = 0;
-	char *str;
-	fd = open("get_next_line.h", O_RDONLY);
-	while(i < 32)
-	{
-		str = get_next_line(fd);
-		printf("%s", str);
+//int main(void)
+//{
+//	int fd;
+//	int i = 0;
+//	char *str;
+//	fd = open("get_next_line.h", O_RDONLY);
+//	while(i < 32)
+//	{
+//		str = get_next_line(fd);
+//		printf("%s", str);
 //		printf("Returned line: %s", str);
 //		printf("\n========[%d]========\n", i+1);
-		free(str);
-		i++;
-	}
-	return (0);
-}
+//		free(str);
+//		i++;
+//	}
+//	return (0);
+//}

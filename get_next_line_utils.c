@@ -6,7 +6,7 @@
 /*   By: mloureir <mloureir@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:51:07 by mloureir          #+#    #+#             */
-/*   Updated: 2023/11/06 11:30:59 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:46:30 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_strjoin(char *toret, char *next)
 	return (newstring);
 }
 
-char 	*ft_buffer_to_str(char *buffer, int bytesread)
+char	*ft_buffer_to_str(char *buffer, int bytesread)
 {
 	int		i;
 	char	*newstr;
