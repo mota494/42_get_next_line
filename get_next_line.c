@@ -6,7 +6,7 @@
 /*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:50:50 by mloureir          #+#    #+#             */
-/*   Updated: 2023/11/06 11:46:16 by mloureir         ###   ########.fr       */
+/*   Updated: 2023/11/09 10:06:33 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,20 +96,20 @@ char	*get_next_line(int fd)
 	return (ft_read_line(fd, toret));
 }
 
-//int main(void)
-//{
-//	int fd;
-//	int i = 0;
-//	char *str;
-//	fd = open("get_next_line.h", O_RDONLY);
-//	while(i < 32)
-//	{
-//		str = get_next_line(fd);
-//		printf("%s", str);
-//		printf("Returned line: %s", str);
-//		printf("\n========[%d]========\n", i+1);
-//		free(str);
-//		i++;
-//	}
-//	return (0);
-//}
+/*int main(void)
+{
+	int fd;
+	int i = 0;
+	char *str;
+	fd = open("get_next_line.h", O_RDONLY);
+	while(i < 32)
+	{
+		str = get_next_line(fd);
+		printf("%s", str);
+		printf("Returned line: %s", str);
+		printf("\n========[%d]========\n", i+1);
+		free(str);
+		i++;
+	}
+	return (0);
+}*/
