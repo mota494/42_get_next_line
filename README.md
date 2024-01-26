@@ -5,6 +5,8 @@
 ![Static Badge](https://img.shields.io/badge/Score-%3100%2F100-green?style=for-the-badge&logo=42&labelColor=%23323030&color=%2381D2C7)
 ![Static Badge](https://img.shields.io/badge/Language-green?style=for-the-badge&logo=C&labelColor=%23323030&color=%2381D2C7)
 
+[![Static Badge](https://img.shields.io/badge/Music%20Suggestion-Click%20Me?style=for-the-badge&logo=YouTube&logoColor=%23000000&labelColor=%23FFFFFF&color=%23FF0000)](https://www.youtube.com/watch?v=eCeBNwBUkcI)
+
 ___
 
 
