@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mloureir <mloureir@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 13:51:07 by mloureir          #+#    #+#             */
-/*   Updated: 2023/11/06 11:46:30 by mloureir         ###   ########.fr       */
+/*   Created: 2023/10/12 13:50:50 by mloureir          #+#    #+#             */
+/*   Updated: 2023/11/09 10:06:33 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-int	ft_hasnl(char *str)
+int	hasnl(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] != '\0')
+	while (str[i])
 	{
 		if (str[i] == '\n')
 			return (1);
@@ -40,56 +26,46 @@ int	ft_hasnl(char *str)
 	return (0);
 }
 
-char	*ft_strjoin(char *toret, char *next)
+int	ft_strlen(char *str)
 {
-	char	*newstring;
-	size_t	i;
+	int	i;
 
 	i = 0;
-	newstring = malloc(ft_strlen(toret) + ft_strlen(next) + 1);
-	if (!newstring)
-	{
-		free(toret);
-		free(next);
-		return (NULL);
-	}
-	while (toret[i])
-	{
-		newstring[i] = toret[i];
+	while (str[i])
 		i++;
-	}
-	while (*next)
-	{
-		newstring[i] = *next;
-		next++;
-		i++;
-	}
-	free(toret);
-	newstring[i] = '\0';
-	return (newstring);
+	return (i);
 }
 
-char	*ft_buffer_to_str(char *buffer, int bytesread)
+char	*alocpy(char *str)
 {
+	char	*toret;
 	int		i;
-	char	*newstr;
 
 	i = 0;
-	while (buffer[i] != '\n' && i < bytesread)
-		i++;
-	if (buffer[i] == '\n')
-		i++;
-	newstr = malloc(i + 1);
-	if (!newstr)
-		return (0);
-	i = 0;
-	while (buffer[i] != '\n' && i < bytesread)
+	toret = malloc(sizeof(char) * ft_strlen(str) + 1);
+	while (str[i])
 	{
-		newstr[i] = buffer[i];
+		toret[i] = str[i];
 		i++;
 	}
-	if (buffer[i] == '\n')
-		newstr[i++] = '\n';
-	newstr[i] = '\0';
-	return (newstr);
+	toret[i] = '\0';
+	return (toret);
+}
+
+char	*strjoinchr(char *oldtoret, char car)
+{
+	char	*newtoret;
+	int		i;
+
+	i = 0;
+	newtoret = malloc(ft_strlen(oldtoret) + 2);
+	while (oldtoret[i])
+	{
+		newtoret[i] = oldtoret[i];
+		i++;
+	}
+	newtoret[i] = car;
+	newtoret[i + 1] = '\0';
+	free(oldtoret);
+	return (newtoret);
 }

@@ -1,115 +1,76 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miguel <miguel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mloureir <mloureir@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 13:50:50 by mloureir          #+#    #+#             */
-/*   Updated: 2023/11/09 10:06:33 by mloureir         ###   ########.fr       */
+/*   Created: 2023/10/12 13:51:07 by mloureir          #+#    #+#             */
+/*   Updated: 2023/11/06 11:46:30 by mloureir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_cleanbuffer(char *buffer)
+char	*get_line(char *oldtoret, char *buffer, int *passed)
 {
-	size_t	i;
-	size_t	j;
+	char	*toret;
+	int		i;
 
 	i = 0;
-	j = 0;
-	while (buffer[i] != '\n' && i < BUFFER_SIZE)
+	toret = alocpy(oldtoret);
+	while (buffer[i] != '\n' && buffer[i])
+	{
+		toret = strjoinchr(toret, buffer[i]);
+		*passed += 1;
 		i++;
+	}
 	if (buffer[i] == '\n')
-		i++;
-	while (i < BUFFER_SIZE)
 	{
-		buffer[j] = buffer[i];
-		i++;
-		j++;
+		toret = strjoinchr(toret, buffer[i]);
+		*passed += 1;
 	}
-	while (j < BUFFER_SIZE)
-	{
-		buffer[j] = '\0';
-		j++;
-	}
+	free(oldtoret);
+	return (toret);
 }
 
-char	*ft_treat_line(char *toret, int bytesread)
-{
-	if (ft_strlen(toret) && bytesread != -1)
-		return (toret);
-	free(toret);
-	return (NULL);
-}
-
-int	ft_is_empty(char *buffer)
+void	clean_buffer(char *buffer, int toclean)
 {
 	int	i;
 
 	i = 0;
-	while (buffer[i] == 0 && i < BUFFER_SIZE)
-		i++;
-	if (i == BUFFER_SIZE)
-		return (1);
-	return (0);
-}
-
-char	*ft_read_line(int fd, char *toret)
-{
-	static char	buffer[BUFFER_SIZE];
-	char		*next;
-	int			bytesread;
-
-	bytesread = 0;
-	while (buffer[bytesread] != '\0' && bytesread < BUFFER_SIZE)
-		bytesread++;
-	while (ft_hasnl(toret) == 0)
+	while (buffer[i + toclean])
 	{
-		if (ft_is_empty(buffer))
-			bytesread = read(fd, buffer, BUFFER_SIZE);
-		if (bytesread <= 0)
-			break ;
-		next = ft_buffer_to_str(buffer, bytesread);
-		if (!next)
-			break ;
-		toret = ft_strjoin(toret, next);
-		if (!toret)
-			return (NULL);
-		free(next);
-		ft_cleanbuffer(buffer);
+		buffer[i] = buffer[i + toclean];
+		i++;
 	}
-	return (ft_treat_line(toret, bytesread));
+	buffer[i] = '\0';
 }
 
 char	*get_next_line(int fd)
 {
-	char	*toret;
+	char		*toret;
+	static char	buffer[BUFFER_SIZE];
+	int			byteread;
+	int			passed;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
-		return (0);
 	toret = malloc(1);
-	if (!toret)
-		return (0);
 	toret[0] = '\0';
-	return (ft_read_line(fd, toret));
-}
-
-/*int main(void)
-{
-	int fd;
-	int i = 0;
-	char *str;
-	fd = open("get_next_line.h", O_RDONLY);
-	while(i < 32)
+	passed = 0;
+	if (buffer[0] != '\0')
 	{
-		str = get_next_line(fd);
-		printf("%s", str);
-		printf("Returned line: %s", str);
-		printf("\n========[%d]========\n", i+1);
-		free(str);
-		i++;
+		toret = get_line(toret, buffer, &passed);
+		clean_buffer(buffer, passed);
 	}
-	return (0);
-}*/
+	while (hasnl(toret) == 0)
+	{
+		passed = 0;
+		byteread = read(fd, buffer, BUFFER_SIZE);
+		if (byteread <= 0)
+			return (NULL);
+		toret = get_line(toret, buffer, &passed);
+		buffer[byteread] = '\0';
+		clean_buffer(buffer, passed);
+	}
+	return (toret);
+}
